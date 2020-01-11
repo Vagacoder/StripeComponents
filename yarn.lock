@@ -1349,6 +1349,14 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-stripe-elements@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-stripe-elements/-/react-stripe-elements-6.0.2.tgz#ce26e08369116613144d6da52874c59f0b656f2d"
+  integrity sha512-PohNK1cGMcAZapaDsSwOVu7+WfM1BPEXThADZzGrcrPP0/74BmdyNr3Nood4XqK7tD/D/mOpkzPMFq4ZNEeRuQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/stripe-v3" "*"
+
 "@types/react@*", "@types/react@^16.9.0":
   version "16.9.17"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.17.tgz#58f0cc0e9ec2425d1441dd7b623421a867aa253e"
@@ -1361,6 +1369,11 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+
+"@types/stripe-v3@*":
+  version "3.1.14"
+  resolved "https://registry.yarnpkg.com/@types/stripe-v3/-/stripe-v3-3.1.14.tgz#5eefbec24754d23f6a039e8fb5c7ea0253007836"
+  integrity sha512-2hT1xOiS4312NsrT1dYuAM7qvoMcegS12wcQ78e7hdRrzetM4d91QJn6IYWP5qWP5v4Rc4acDfoIR9cbhpSgMA==
 
 "@types/testing-library__dom@*", "@types/testing-library__dom@^6.0.0":
   version "6.11.1"
@@ -4344,6 +4357,11 @@ form-data@~2.3.2:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
+
+form-urlencoded@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/form-urlencoded/-/form-urlencoded-1.5.1.tgz#fb69d16a6469363b3fdabf9d256a39a7a5ed2e13"
+  integrity sha1-+2nRamRpNjs/2r+dJWo5p6XtLhM=
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -8162,7 +8180,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -8447,6 +8465,13 @@ react-scripts@3.3.0:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-stripe-elements@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-stripe-elements/-/react-stripe-elements-6.0.1.tgz#f2b1e4c132cb18f140668556a5218e3b8e082794"
+  integrity sha512-WVKTunSgsrkm8Tv1+BEehfYrA2CHdlk01ocmbcECliPb1EDybaoUCx2MR212ptRHyitMrHF+ahUTewjaX98kcQ==
+  dependencies:
+    prop-types "15.7.2"
 
 react@^16.12.0:
   version "16.12.0"
@@ -9560,6 +9585,13 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+
+stripe-client@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/stripe-client/-/stripe-client-1.1.5.tgz#49e8a6f3c884fa96d5d8023c0d436b58ed7bf713"
+  integrity sha1-Seim88iE+pbV2AI8DUNrWO179xM=
+  dependencies:
+    form-urlencoded "^1.5.1"
 
 style-loader@1.0.0:
   version "1.0.0"

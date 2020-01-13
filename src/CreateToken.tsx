@@ -1,27 +1,73 @@
 import React, { useState } from 'react';
-import StripeSettings from './StripeSettings';
-import * as appConfig from './StripeConfig.json';
+import { stripePost } from './Stripe';
+import { ICreditCardInfo } from './Stripe';
+import Stripconfig from './StripeConfig.json';
 
-const CreateToken = (props: any) => {
+interface ICreateToken {
+  data: ICreditCardInfo,
+  setCreditTokenId: Function,
+}
 
-    const KEY = appConfig.api_key;
-    const [cardNumber, setCardNumber] = useState(0);
-    const [expMonth, setExpMonth] = useState(0)
-    const [expYear, setExpYear] = useState(0)
+const CreateToken = (props: ICreateToken) => {
 
-    const handleCardNumber = (event: any) => {
-        let number = event.target.value;
-        setCardNumber(Number.parseInt(number));
+  const [cardNumber, setCardNumber] = useState<number>(props.data.number);
+  const [expMonth, setExpMonth] = useState<number>(props.data.expMonth);
+  const [expYear, setExpYear] = useState<number>(props.data.expYear);
+  const [cvc, setCvc] = useState<number>(props.data.cvc);
+
+  const handleCardNumber = (event: any) => {
+    let number = event.target.value;
+    setCardNumber(Number.parseInt(number));
+  }
+
+  const handleExpMonth = (event: any) => {
+    let month = event.target.value;
+    setExpMonth(Number.parseInt(month));
+  }
+
+  const handleExpYear = (event: any) => {
+    let year = event.target.value;
+    setExpYear(Number.parseInt(year));
+  }
+
+  const handleCvc = (event: any) => {
+    let cvc = event.target.value;
+    setCvc(Number.parseInt(cvc));
+  }
+
+  const handleSubmit = () => {
+    if (cardNumber && expMonth && expYear && cvc) {
+      let body = {
+        number: cardNumber,
+        expMonth: expMonth,
+        expYear: expYear,
+        cvc: cvc
+      }
+      stripePost({ endpoint: "tokens", body: body, api_key: Stripconfig.api_key })
+        .then((resp: any) => {
+          console.log(resp);
+          let cardToken = resp.id;
+          props.setCreditTokenId(cardToken);
+        }).catch(e => {
+          console.log(e);
+        })
     }
-    return (
-        <div>
-            <p>Enter card number</p>
-            <input placeholder="1000200030004000" value={cardNumber} onChange={handleCardNumber} />
-            <p>Enter expiration date</p>
-            <input value={expMonth} onChange={handleCardNumber} />
-            <input value={expYear} onChange={handleCardNumber} />
-        </div>
-    );
+  }
+
+  return (
+    <div>
+      <p>Enter card number</p>
+      <input placeholder="1000200030004000" defaultValue={cardNumber} onChange={handleCardNumber} />
+      <p>Enter expiration date (mm/yyyy)</p>
+      <input placeholder="01" defaultValue={expMonth} onChange={handleExpMonth} />
+      <input placeholder="24" defaultValue={expYear} onChange={handleExpYear} />
+      <p>Enter CVC</p>
+      <input placeholder="618" value={cvc} onChange={handleCvc} />
+      <br />
+      <br />
+      <button onClick={handleSubmit} >Create a token for card</button>
+    </div>
+  );
 }
 
 export default CreateToken;

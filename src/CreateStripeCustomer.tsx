@@ -1,17 +1,24 @@
 import React from 'react';
 import { stripePost } from './Stripe';
 import { IStripeCustomer } from './Stripe';
+import Stripconfig from './StripeConfig.json';
 
-const CreateStripeCustomer: React.SFC<IStripeCustomer> = (props) => {
+interface ICreateStripeCustomer {
+  data: IStripeCustomer,
+  setCustomerId: Function,
+}
+
+const CreateStripeCustomer: React.SFC<ICreateStripeCustomer> = (props) => {
 
   const handleOnClick = () => {
     stripePost({
       endpoint: 'customers',
-      body: props
+      body: props.data,
+      api_key: Stripconfig.api_key,
     }).then((resp: any) => {
       console.log(resp);
-      let customerID = resp.id;
-      console.log(customerID);
+      let customerId = resp.id;
+      props.setCustomerId(customerId);
     }).catch(e => {
       console.log(e);
     })

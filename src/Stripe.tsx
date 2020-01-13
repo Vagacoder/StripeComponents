@@ -1,4 +1,3 @@
-import * as StripeConfig from './StripeConfig.json';
 export interface IStripeCustomer {
   firstName: string,
   lastName: string,
@@ -13,8 +12,26 @@ export interface IStripeCustomer {
   webUrl: string,
 }
 
-const ConvertStripeCustomerBody = (data: IStripeCustomer): string => {
+export interface ICreditCardInfo {
+  number: number,
+  expMonth: number,
+  expYear: number,
+  cvc: number,
+}
 
+export interface IAttachCreditCardToCustomer {
+  customerId: string,
+  cardTokenId: string,
+}
+
+interface IStripeApiArgs {
+  endpoint: string,
+  method: string,
+  body: string,
+  api_key: string,
+}
+
+const ConvertStripeCustomerBody = (data: IStripeCustomer): string => {
   const { firstName, lastName, address, city, state, country, zipcode,
     email, phone, companyName, webUrl } = data;
 
@@ -24,28 +41,46 @@ const ConvertStripeCustomerBody = (data: IStripeCustomer): string => {
     description=${companyName} ${webUrl}`;
 }
 
-const Stripe = {
-  origin: "https://api.stripe.com/v1",
-  customerbody: ConvertStripeCustomerBody,
+const ConvertStripeCardToken = (data: ICreditCardInfo): string => {
+  return `card[number]=${data.number}&card[exp_month]=${data.expMonth}&\
+  card[exp_year]=${data.expYear}&card[cvc]=${data.cvc}`;
 }
 
-const stripeAPI = (params: any) => {
+const AttachCardToCustomer = (data: IAttachCreditCardToCustomer) => {
+  return `source=${data.cardTokenId}`;
+}
+
+const Stripe = {
+  origin: "https://api.stripe.com/v1",
+  customerBody: ConvertStripeCustomerBody,
+  cardTokenBody: ConvertStripeCardToken,
+  attachCardToCustomer: AttachCardToCustomer,
+}
+
+const stripeAPI = (params: IStripeApiArgs) => {
 
   // * Reserve for different bodies ================
-  let bodyParseFunc = Stripe.customerbody;
+  let bodyParseFunc: any = null;
 
   if (params.endpoint === 'customers') {
-    bodyParseFunc = Stripe.customerbody;
-  } else {
-    bodyParseFunc = Stripe.customerbody;
+    bodyParseFunc = Stripe.customerBody;
+  } else if (params.endpoint === 'tokens') {
+    bodyParseFunc = Stripe.cardTokenBody;
+  } else if (params.endpoint.startsWith('customers/cus_') &&
+    params.endpoint.endsWith('/sources')) {
+    bodyParseFunc = Stripe.attachCardToCustomer;
+  }
+  else {
+    bodyParseFunc = Stripe.customerBody;
   }
   // * =============================================
+
 
   return new Promise((accept: any, reject: any) => {
     fetch(`${Stripe.origin}/${params.endpoint}`, {
       method: params.method,
       headers: {
-        'Authorization': `Bearer ${StripeConfig.api_key}`,
+        'Authorization': `Bearer ${params.api_key}`,
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -64,7 +99,8 @@ export const stripePost = (params: any) => {
     stripeAPI({
       endpoint: params.endpoint,
       method: 'POST',
-      body: params.body
+      body: params.body,
+      api_key: params.api_key
     })
       .then((resp: any) => {
         accept(resp);
@@ -73,5 +109,32 @@ export const stripePost = (params: any) => {
         reject(e)
       })
   })
+}
 
+export const stripeGet = (params: any) => {
+  return new Promise((acc, rej) => {
+    fetch(`${Stripe.origin}/${params.endpoint}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${params.api_key}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then((res) => { acc(res.json()); })
+      .catch((e) => { rej(e) });
+  })
+}
+
+export const stripeDelete = (params: any) => {
+  return new Promise((acc, rej) => {
+    fetch(`${Stripe.origin}/${params.endpoint}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${params.api_key}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then((res) => { acc(res.json()); })
+      .catch((e) => { rej(e) });
+  })
 }

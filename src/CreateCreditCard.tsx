@@ -1,7 +1,7 @@
 import React from 'react';
 import { IAttachCreditCardToCustomer } from './Stripe';
 import { stripePost } from './Stripe';
-import Stripconfig from './StripeConfig.json';
+import Stripeconfig from './StripeConfig.json';
 
 interface ICreateCreditCard {
   data: IAttachCreditCardToCustomer,
@@ -14,7 +14,7 @@ const CreateCreditCard = (props: ICreateCreditCard) => {
     stripePost({
       endpoint: `customers/${props.data.customerId}/sources`,
       body: { cardTokenId: props.data.cardTokenId },
-      api_key: Stripconfig.api_key,
+      api_key: Stripeconfig.api_key,
     }).then((resp: any) => {
       console.log(resp);
       props.setCreditId(resp.id);

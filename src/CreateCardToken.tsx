@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { stripePost } from './Stripe';
 import { ICreditCardInfo } from './Stripe';
-import Stripconfig from './StripeConfig.json';
+import Stripeconfig from './StripeConfig.json';
 
 interface ICreateToken {
   data: ICreditCardInfo,
   setCreditTokenId: Function,
 }
 
-const CreateToken = (props: ICreateToken) => {
+const CreateCardToken = (props: ICreateToken) => {
 
   const [cardNumber, setCardNumber] = useState<number>(props.data.number);
   const [expMonth, setExpMonth] = useState<number>(props.data.expMonth);
@@ -43,7 +43,7 @@ const CreateToken = (props: ICreateToken) => {
         expYear: expYear,
         cvc: cvc
       }
-      stripePost({ endpoint: "tokens", body: body, api_key: Stripconfig.api_key })
+      stripePost({ endpoint: "tokens", body: body, api_key: Stripeconfig.api_key })
         .then((resp: any) => {
           console.log(resp);
           let cardToken = resp.id;
@@ -70,4 +70,4 @@ const CreateToken = (props: ICreateToken) => {
   );
 }
 
-export default CreateToken;
+export default CreateCardToken;

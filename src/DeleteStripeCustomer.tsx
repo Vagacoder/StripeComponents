@@ -1,6 +1,6 @@
 import React from 'react';
 import { stripeDelete } from './Stripe';
-import Stripconfig from './StripeConfig.json';
+import Stripeconfig from './StripeConfig.json';
 
 interface IDeleteStripeCustomer {
   customerId: string,
@@ -13,7 +13,7 @@ const DeleteStripeCustomer = (props: IDeleteStripeCustomer) => {
   const handleClick = () => {
     stripeDelete({
       endpoint: `customers/${props.customerId}`,
-      api_key: Stripconfig.api_key,
+      api_key: Stripeconfig.api_key,
     })
       .then((res: any) => {
         console.log(res);

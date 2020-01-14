@@ -1,6 +1,6 @@
 import React from 'react';
 import { stripeGet } from './Stripe';
-import Stripconfig from './StripeConfig.json';
+import Stripeconfig from './StripeConfig.json';
 
 interface IGetStripeCustomer {
   customerId: string
@@ -12,12 +12,11 @@ const GetStripeCustomer = (props: IGetStripeCustomer) => {
   const handleClick = () => {
     stripeGet({
       endpoint: `customers/${props.customerId}`,
-      api_key: Stripconfig.api_key,
+      api_key: Stripeconfig.api_key,
+    }).then((res: any) => {
+      console.log(res);
+      setCustomerInfo(JSON.stringify(res));
     })
-      .then((res: any) => {
-        console.log(res);
-        setCustomerInfo(JSON.stringify(res));
-      })
       .catch((e: any) => { console.log(e) });
   }
 

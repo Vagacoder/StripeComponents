@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateStripeCustomer from './CreateStripeCustomer';
-import CreateToken from './CreateToken';
+import CreateCardToken from './CreateCardToken';
 import CreateCreditCard from './CreateCreditCard';
 
 const StripePostExample = (props: any) => {
@@ -11,7 +11,7 @@ const StripePostExample = (props: any) => {
       <h4>1.1. Create Stripe Customer</h4>
       <CreateStripeCustomer data={props.customer} setCustomerId={props.setCustomerId} />
       <h4>1.2. Create a token for Credit Card</h4>
-      <CreateToken data={props.card} setCreditTokenId={props.setCreditTokenId} />
+      <CreateCardToken data={props.card} setCreditTokenId={props.setCreditTokenId} />
       <h4>1.3. Attach credit card to customer</h4>
       <CreateCreditCard
         data={{

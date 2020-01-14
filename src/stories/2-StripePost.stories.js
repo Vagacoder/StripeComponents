@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import StripePostExample from '../StripePostExample';
 import CreateStripeCustomer from '../CreateStripeCustomer';
-import CreateToken from '../CreateToken';
+import CreateCardToken from '../CreateCardToken';
 import CreateCreditCard from '../CreateCreditCard';
 
 export default {
@@ -56,7 +56,7 @@ export const CreateATokenForCard = () => {
   return (
     <React.Fragment>
       <b>Stripe will validate card number, changing default number to see error message</b>
-      <CreateToken data={newCreditCard1}
+      <CreateCardToken data={newCreditCard1}
         setCreditTokenId={(tokenId) => {
           console.log("new token is: ", tokenId);
           action("new token is: ", tokenId);

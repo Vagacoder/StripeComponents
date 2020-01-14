@@ -1,7 +1,7 @@
 import React from 'react';
 import { stripePost } from './Stripe';
 import { IStripeCustomer } from './Stripe';
-import Stripconfig from './StripeConfig.json';
+import Stripeconfig from './StripeConfig.json';
 
 interface ICreateStripeCustomer {
   data: IStripeCustomer,
@@ -14,7 +14,7 @@ const CreateStripeCustomer: React.SFC<ICreateStripeCustomer> = (props) => {
     stripePost({
       endpoint: 'customers',
       body: props.data,
-      api_key: Stripconfig.api_key,
+      api_key: Stripeconfig.api_key,
     }).then((resp: any) => {
       console.log(resp);
       let customerId = resp.id;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { stripeGet } from './Stripe';
-import Stripconfig from './StripeConfig.json';
+import Stripeconfig from './StripeConfig.json';
 
 interface IGetCreditCard {
   customerId: string,
@@ -14,12 +14,11 @@ const GetCreditCard = (props: IGetCreditCard) => {
   const handleClick = () => {
     stripeGet({
       endpoint: `customers/${props.customerId}/sources/${props.creditCardId}`,
-      api_key: Stripconfig.api_key,
+      api_key: Stripeconfig.api_key,
+    }).then((res: any) => {
+      console.log(res);
+      setCreditCardInfo(JSON.stringify(res));
     })
-      .then((res: any) => {
-        console.log(res);
-        setCreditCardInfo(JSON.stringify(res));
-      })
       .catch((e: any) => { console.log(e) });
   }
 

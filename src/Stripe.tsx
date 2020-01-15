@@ -19,6 +19,15 @@ export interface ICreditCardInfo {
   cvc: number,
 }
 
+export interface IBankAccountInfo {
+  accountNumber: number,
+  routingNumber?: number;
+  accountHolderName?: string,
+  accountHolderType?: string,
+  currency: string,
+  country: string,
+}
+
 export interface IAttachCreditCardToCustomer {
   customerId: string,
   cardTokenId: string,

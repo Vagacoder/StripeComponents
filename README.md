@@ -3,14 +3,14 @@
 ## Introduction
 
 StripeAPIComponet is a package providing integerated APIs for Stripe. It does NOT use any Stripe developmental tools. 
-All functionalities are implemented using Stripe RESTful APIs on URL endpoints.
+All functionalities are implemented using Stripe RESTful [APIs](https://stripe.com/docs/api) on URL endpoints.
 
 ## Demo
 
 This package comes with Storybook demos. To check it:
 
 1. Clone this repository to local
-2. Create a file: StripeConfig.json at /src folder including your Stripe api key, like: `{ "api_key" : "your secrect api key" }`
+2. Create a file: `StripeConfig.json` at `/src` folder including your Stripe api key, like: `{ "api_key" : "your secrect api key" }`
 
 ![stripeconfig](pics/stripeconfig.jpg)
 
@@ -23,7 +23,7 @@ This package comes with Storybook demos. To check it:
 
 ### stripeAPI(params)
 
-stripeAPI is the fundamental function of StripAPIComponent.
+stripeAPI is the fundamental function of StripAPIComponent. Instead of calling stripeAPI directly, call wrappers such as `stripeGet()`, `stripePost()`.
 
 #### params
 
@@ -34,7 +34,8 @@ params is a JSON object with attributes:
 	endpoint includes: 
 	
 	1. create a new customer/get customer: 'customers'
-	2. create a token: 'tokens'
+	2. create a token/get token: 'tokens'
+	3. balance of entire account: 'balance'
 	
 * method
 

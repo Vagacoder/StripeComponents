@@ -1,5 +1,11 @@
 # StripeAPIComponent
 
+[![StripAPIComponent](http://img.shields.io/badge/StripeAPIComponent-REACT-blue)](https://github.com/Vagacoder/StripeAPIComponents/)
+![StripAPIComponent](http://img.shields.io/badge/StripeAPIComponent-ES6-yellow)
+![StripAPIComponent](http://img.shields.io/badge/StripeAPIComponent-Stripe-royalblue)
+![StripAPIComponent](http://img.shields.io/badge/StripeAPIComponent-RESTful-blue)
+![StripAPIComponent](http://img.shields.io/badge/StripeAPIComponent-Storybook-deeppink)
+
 ## Introduction
 
 StripeAPIComponet is a package providing integerated APIs for Stripe. It does NOT use any Stripe developmental tools. 
